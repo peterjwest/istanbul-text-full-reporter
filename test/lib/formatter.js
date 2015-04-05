@@ -1,24 +1,10 @@
 var _ = require('lodash');
 var assert = require('assert');
 var formatter = require('../../lib/formatter');
+var format = require('../../lib/bash-format');
 
 assert.contains = function(actual, expected) {
     assert(actual.indexOf(expected) !== -1, JSON.stringify(actual) + ' does not contain ' + JSON.stringify(expected));
-};
-
-var stripFormatting = function(string) {
-    return string.replace(/\033\[\d+m/g, '');
-};
-
-var formatText = function(code, string) {
-    return '\033[' + code + 'm' + string + '\033[0m';
-};
-
-var format = {
-    red: _.partial(formatText, 31),
-    green: _.partial(formatText, 32),
-    grey: _.partial(formatText, 90),
-    bold: _.partial(formatText, 1)
 };
 
 describe('outputSummary', function() {
@@ -45,7 +31,7 @@ describe('outputSummary', function() {
             '--------------------------------------------------------------------------------'
         ].join('\n');
 
-        assert.equal(stripFormatting(formatter.outputSummary(thresholds, summary)), expected);
+        assert.equal(format.strip(formatter.outputSummary(thresholds, summary)), expected);
     });
 
     it('should colour results correctly', function() {
@@ -104,7 +90,7 @@ describe('outputFile', function() {
             ' 4 | };'
         ].join('\n');
 
-        assert.equal(stripFormatting(formatter.outputFile('/path/file.js', file, missing)), expected);
+        assert.equal(format.strip(formatter.outputFile('/path/file.js', file, missing)), expected);
     });
 
     it('should not render a summary if the file has no missing coverage', function() {

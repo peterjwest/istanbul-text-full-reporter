@@ -3,11 +3,8 @@ var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
 var sinon = require('sinon');
+var format = require('../lib/bash-format');
 var TextFullReport = require('../index');
-
-var stripFormatting = function(string) {
-    return string.replace(/\033\[\d+m/g, '');
-};
 
 describe('TextFullReport', function() {
     var reporter;
@@ -61,8 +58,8 @@ describe('TextFullReport', function() {
         ].join('\n');
 
         assert.equal(console.log.callCount, 2);
-        assert.equal(stripFormatting(console.log.getCall(0).args[0]), expectedSummary);
-        assert.equal(stripFormatting(console.log.getCall(1).args[0]), expectedFile);
+        assert.equal(format.strip(console.log.getCall(0).args[0]), expectedSummary);
+        assert.equal(format.strip(console.log.getCall(1).args[0]), expectedFile);
     }));
 
     it('should generate a report with files not covered when individual thresholds are not met', sinon.test(function() {
@@ -109,8 +106,8 @@ describe('TextFullReport', function() {
         ].join('\n');
 
         assert.equal(console.log.callCount, 2);
-        assert.equal(stripFormatting(console.log.getCall(0).args[0]), expectedSummary);
-        assert.equal(stripFormatting(console.log.getCall(1).args[0]), expectedFile);
+        assert.equal(format.strip(console.log.getCall(0).args[0]), expectedSummary);
+        assert.equal(format.strip(console.log.getCall(1).args[0]), expectedFile);
     }));
 
     it('should generate a report without files when thresholds are met', sinon.test(function() {
@@ -140,7 +137,7 @@ describe('TextFullReport', function() {
         ].join('\n');
 
         assert.equal(console.log.callCount, 1);
-        assert.equal(stripFormatting(console.log.getCall(0).args[0]), expectedSummary);
+        assert.equal(format.strip(console.log.getCall(0).args[0]), expectedSummary);
     }));
 
     it('should error if readFile errors', sinon.test(function(done) {
