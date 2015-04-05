@@ -20,15 +20,12 @@ gulp.task('test', function(cb) {
 });
 
 gulp.task('coverage', function(cb) {
-        .pipe(gulpIstanbul({ includeUntested: true, coverageVariable: '__coverage' }))
     return gulp.src(files)
+        .pipe(gulpIstanbul({ includeUntested: true }))
         .pipe(gulpIstanbul.hookRequire())
         .on('finish', function() {
             gulp.src(tests)
                 .pipe(mocha())
-                .pipe(gulpIstanbul.writeReports({
-                    coverageVariable: '__coverage',
-                    reporters: [reporter]
-                }));
+                .pipe(gulpIstanbul.writeReports({ reporters: [reporter] }));
         });
 });
