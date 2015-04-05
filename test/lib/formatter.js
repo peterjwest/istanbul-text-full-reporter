@@ -11,7 +11,7 @@ var stripFormatting = function(string) {
 };
 
 var formatText = function(code, string) {
-    return '\033['+code+'m' + string + '\033[0m';
+    return '\033[' + code + 'm' + string + '\033[0m';
 };
 
 var format = {

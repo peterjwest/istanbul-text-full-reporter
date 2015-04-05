@@ -31,15 +31,15 @@ TextFullReport.prototype = Object.create(istanbul.Report.prototype);
 TextFullReport.TYPE = 'text-full';
 
 istanbul.Report.mix(TextFullReport, {
-    synopsis: function () {
+    synopsis: function() {
         return 'text report that prints coverage gaps when coverage thresholds are not met';
     },
 
-    getDefaultConfig: function () {
+    getDefaultConfig: function() {
         return {};
     },
 
-    writeReport: function (collector) {
+    writeReport: function(collector) {
         var self = this;
         var coverage = collector.getFinalCoverage();
         var summary = checker.checkFailures(this.thresholds, coverage);

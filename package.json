@@ -4,6 +4,7 @@
   "description": "Text based coverage reporter for Istanbul code coverage",
   "main": "index.js",
   "dependencies": {
+    "gulp-jscs": "^1.4.0",
     "istanbul": "^0.3.13",
     "lodash": "^3.6.0"
   },

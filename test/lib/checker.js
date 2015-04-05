@@ -69,7 +69,7 @@ describe('checkFailures', sinon.test(function() {
 
     var coverage = {
         '/file/test.js': {},
-        '/file/test2.js': {},
+        '/file/test2.js': {}
     };
 
     var thresholds = {
