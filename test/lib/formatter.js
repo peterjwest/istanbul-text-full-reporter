@@ -28,7 +28,8 @@ describe('outputSummary', function() {
             ' Statements | 40% coverage (threshold 90%) | 2 files failed (threshold 100%)    ',
             ' Functions  | 65% coverage (threshold 80%) | 1 files failed (threshold 30 gaps) ',
             ' Branches   | 80% coverage (threshold 70%) | All files passed (threshold 100%)  ',
-            '--------------------------------------------------------------------------------'
+            '--------------------------------------------------------------------------------',
+            ''
         ].join('\n');
 
         assert.equal(format.strip(formatter.outputSummary(thresholds, summary)), expected);
@@ -54,7 +55,8 @@ describe('outputSummary', function() {
             ' Statements | 40% coverage (threshold 90%) | 2 files failed (threshold 100%)    ',
             ' Functions  | 65% coverage (threshold 80%) | 1 files failed (threshold 30 gaps) ',
             ' Branches   | 80% coverage (threshold 70%) | All files passed (threshold 100%)  ',
-            '--------------------------------------------------------------------------------'
+            '--------------------------------------------------------------------------------',
+            ''
         ].join('\n');
 
 
@@ -82,12 +84,12 @@ describe('outputFile', function() {
         };
 
         var expected = [
-            '',
             'Missing coverage in /path/file.js',
             ' 1 | var test = function(value) {',
             ' 2 |     if (!value) return false;',
             ' ~ | ',
-            ' 4 | };'
+            ' 4 | };',
+            ''
         ].join('\n');
 
         assert.equal(format.strip(formatter.outputFile('/path/file.js', file, missing)), expected);

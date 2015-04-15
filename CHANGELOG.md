@@ -1,3 +1,7 @@
+# Unreleased
+
+- Improved newline formatting
+
 # 0.1.0
 
 - Created reporter

@@ -46,15 +46,17 @@ describe('TextFullReport', function() {
             ' Statements | 62.5% coverage (threshold 100%) | 1 files failed (threshold 100%) ',
             ' Functions  | 75% coverage (threshold 100%)   | 1 files failed (threshold 100%) ',
             ' Branches   | 75% coverage (threshold 100%)   | 1 files failed (threshold 100%) ',
-            '--------------------------------------------------------------------------------'
+            '--------------------------------------------------------------------------------',
+            ''
         ].join('\n');
 
         var expectedFile = [
-            '\nMissing coverage in test.js',
+            'Missing coverage in test.js',
             ' 1 | var test = function(value) {',
             ' 2 |     if (!value) return false;',
             ' 3 |     return true;',
-            ' 4 | };'
+            ' 4 | };',
+            ''
         ].join('\n');
 
         assert.equal(console.log.callCount, 2);
@@ -94,15 +96,17 @@ describe('TextFullReport', function() {
             ' Statements | 62.5% coverage (threshold 60%) | 1 files failed (threshold 100%) ',
             ' Functions  | 75% coverage (threshold 75%)   | 1 files failed (threshold 100%) ',
             ' Branches   | 75% coverage (threshold 75%)   | 1 files failed (threshold 100%) ',
-            '-------------------------------------------------------------------------------'
+            '-------------------------------------------------------------------------------',
+            ''
         ].join('\n');
 
         var expectedFile = [
-            '\nMissing coverage in test.js',
+            'Missing coverage in test.js',
             ' 1 | var test = function(value) {',
             ' 2 |     if (!value) return false;',
             ' 3 |     return true;',
-            ' 4 | };'
+            ' 4 | };',
+            ''
         ].join('\n');
 
         assert.equal(console.log.callCount, 2);
@@ -133,7 +137,8 @@ describe('TextFullReport', function() {
             ' Statements | 100% coverage (threshold 100%) | All files passed (threshold 100%) ',
             ' Functions  | 100% coverage (threshold 100%) | All files passed (threshold 100%) ',
             ' Branches   | 100% coverage (threshold 100%) | All files passed (threshold 100%) ',
-            '---------------------------------------------------------------------------------'
+            '---------------------------------------------------------------------------------',
+            ''
         ].join('\n');
 
         assert.equal(console.log.callCount, 1);
