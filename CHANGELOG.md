@@ -1,4 +1,4 @@
-# Unreleased
+# 0.1.1
 
 - Improved newline formatting
 - Added threshold configuration to docs
