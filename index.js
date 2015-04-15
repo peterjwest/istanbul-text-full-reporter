@@ -2,6 +2,7 @@ var _ = require('lodash');
 var fs = require('fs');
 var istanbul = require('istanbul');
 var path = require('path');
+
 var formatter = require('./lib/formatter');
 var checker = require('./lib/checker');
 
@@ -52,17 +53,15 @@ istanbul.Report.mix(TextFullReport, {
         if (globalFailure || filesFailed.length) {
             var filesFailedMap = _.indexBy(filesFailed);
 
-            _.each(coverage, function(fileCoverage, file) {
-                if (!globalFailure && !filesFailedMap[file]) return;
+            _.each(coverage, function(fileCoverage, filePath) {
+                if (!globalFailure && !filesFailedMap[filePath]) return;
 
-                fs.readFile(file, function(err, data) {
-                    if (err) return self.emit('error', err);
-                    var filename = path.relative(self.root, file);
-                    var missing = checker.getMissedLines(fileCoverage);
+                var data = fs.readFileSync(filePath);
+                var filename = path.relative(self.root, filePath);
+                var missing = checker.getMissedLines(fileCoverage);
 
-                    var output = formatter.outputFile(filename, data.toString(), missing);
-                    if (output) console.log(output);
-                });
+                var output = formatter.outputFile(filename, data.toString(), missing);
+                if (output) console.log(output);
             });
         }
 

@@ -23,9 +23,10 @@ gulp.task('coverage', function(cb) {
     return gulp.src(files)
         .pipe(gulpIstanbul({ includeUntested: true }))
         .pipe(gulpIstanbul.hookRequire())
-        .on('finish', function() {
+        .on('end', function() {
             gulp.src(tests)
                 .pipe(mocha())
+                .on('error', cb)
                 .pipe(gulpIstanbul.writeReports({ reporters: [reporter] }));
         });
 });

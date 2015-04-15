@@ -5,6 +5,8 @@ var path = require('path');
 var sinon = require('sinon');
 var format = require('../lib/bash-format');
 var TextFullReport = require('../index');
+var coverage1 = require('./fixtures/coverage');
+var coverage2 = require('./fixtures/coverage2');
 
 describe('TextFullReport', function() {
     var reporter;
@@ -25,7 +27,7 @@ describe('TextFullReport', function() {
     it('should generate a report with files not covered when thresholds are not met', sinon.test(function() {
         this.stub(console, 'log');
         this.stub(path, 'relative').returns('test.js');
-        this.stub(fs, 'readFile').yields(null, [
+        this.stub(fs, 'readFileSync').returns([
             'var test = function(value) {',
             '    if (!value) return false;',
             '    return true;',
@@ -34,8 +36,8 @@ describe('TextFullReport', function() {
 
         reporter.writeReport({
             getFinalCoverage: function() { return {
-                '/path/test.js': require('./fixtures/coverage'),
-                '/path/test2.js': require('./fixtures/coverage2')
+                '/path/test.js': coverage1,
+                '/path/test2.js': coverage2
             }; }
         });
 
@@ -68,7 +70,7 @@ describe('TextFullReport', function() {
         var log = console.log;
         this.stub(console, 'log');
         this.stub(path, 'relative').returns('test.js');
-        this.stub(fs, 'readFile').yields(null, [
+        this.stub(fs, 'readFileSync').returns([
             'var test = function(value) {',
             '    if (!value) return false;',
             '    return true;',
@@ -84,8 +86,8 @@ describe('TextFullReport', function() {
 
         reporter.writeReport({
             getFinalCoverage: function() { return {
-                '/path/test.js': require('./fixtures/coverage'),
-                '/path/test2.js': require('./fixtures/coverage2')
+                '/path/test.js': coverage1,
+                '/path/test2.js': coverage2
             }; }
         });
 
@@ -117,7 +119,7 @@ describe('TextFullReport', function() {
     it('should generate a report without files when thresholds are met', sinon.test(function() {
         this.stub(console, 'log');
         this.stub(path, 'relative').returns('test.js');
-        this.stub(fs, 'readFile').yields(null, [
+        this.stub(fs, 'readFileSync').returns([
             'var test = function(value) {',
             '    if (!value) return false;',
             '    return true;',
@@ -126,7 +128,7 @@ describe('TextFullReport', function() {
 
         reporter.writeReport({
             getFinalCoverage: function() { return {
-                '/path/test2.js': require('./fixtures/coverage2')
+                '/path/test2.js': coverage2
             }; }
         });
 
@@ -143,19 +145,5 @@ describe('TextFullReport', function() {
 
         assert.equal(console.log.callCount, 1);
         assert.equal(format.strip(console.log.getCall(0).args[0]), expectedSummary);
-    }));
-
-    it('should error if readFile errors', sinon.test(function(done) {
-        this.stub(console, 'log');
-        this.stub(fs, 'readFile').yields('Error');
-
-        var coverage = require('./fixtures/coverage');
-
-        reporter.on('error', function(err) {
-            assert.equal(err, 'Error');
-            done();
-        });
-
-        reporter.writeReport({ getFinalCoverage: function() { return { '/path/test.js': coverage }; } });
     }));
 });
