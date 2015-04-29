@@ -4,16 +4,16 @@
   "description": "Text based coverage reporter for Istanbul code coverage",
   "main": "index.js",
   "dependencies": {
-    "istanbul": "^0.3.13",
-    "istanbul-threshold-checker": "^0.1.0",
-    "lodash": "^3.6.0"
+    "istanbul": "0.3.*",
+    "istanbul-threshold-checker": "0.1.*",
+    "lodash": "3.6.*"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-istanbul": "^0.8.1",
-    "gulp-jscs": "^1.4.0",
-    "gulp-mocha": "^2.0.1",
-    "sinon": "^1.14.1"
+    "gulp": "3.8.*",
+    "gulp-istanbul": "0.8.*",
+    "gulp-jscs": "1.4.*",
+    "gulp-mocha": "2.0.*",
+    "sinon": "1.14.*"
   },
   "repository": {
     "type": "git",
