@@ -1,10 +1,11 @@
 var _ = require('lodash');
+var checker = require('istanbul-threshold-checker');
 var fs = require('fs');
 var istanbul = require('istanbul');
 var path = require('path');
 
 var formatter = require('./lib/formatter');
-var checker = require('./lib/checker');
+var collector = require('./lib/collector');
 
 var defaultThresholds = {
     global: {
@@ -40,15 +41,19 @@ istanbul.Report.mix(TextFullReport, {
         return {};
     },
 
-    writeReport: function(collector) {
+    writeReport: function(coverageCollector) {
         var self = this;
-        var coverage = collector.getFinalCoverage();
-        var summary = checker.checkFailures(this.thresholds, coverage);
+        var coverage = coverageCollector.getFinalCoverage();
+        var failures = checker.checkFailures(this.thresholds, coverage);
 
-        console.log(formatter.outputSummary(this.thresholds, summary));
+        console.log(formatter.outputSummary(this.thresholds, failures));
 
-        var globalFailure = _.any(summary, 'failed');
-        var filesFailed = _.unique(_.flatten(_.map(summary, 'filesFailed')));
+        var globalFailure = _.any(failures, function(item) {
+            return item.global && item.global.failed;
+        });
+        var filesFailed = _.unique(_.flatten(_.map(failures, function(item) {
+            return item.each ? item.each.failures : [];
+        })));
 
         if (globalFailure || filesFailed.length) {
             var filesFailedMap = _.indexBy(filesFailed);
@@ -58,7 +63,7 @@ istanbul.Report.mix(TextFullReport, {
 
                 var data = fs.readFileSync(filePath);
                 var filename = path.relative(self.root, filePath);
-                var missing = checker.getMissedLines(fileCoverage);
+                var missing = collector.getMissedLines(fileCoverage);
 
                 var output = formatter.outputFile(filename, data.toString(), missing);
                 if (output) console.log(output);

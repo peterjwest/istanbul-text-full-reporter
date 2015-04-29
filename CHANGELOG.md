@@ -1,3 +1,8 @@
+# Unreleased
+
+- Replaced threshold checker with separate module
+- Added support for global and/or per file thresholds
+
 # 0.1.1
 
 - Improved newline formatting
