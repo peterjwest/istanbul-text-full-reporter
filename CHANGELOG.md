@@ -1,4 +1,4 @@
-# Unreleased
+# 0.1.2
 
 - Replaced threshold checker with separate module
 - Added support for global and/or per file thresholds
