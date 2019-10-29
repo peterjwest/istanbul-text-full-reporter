@@ -6,7 +6,7 @@
   "dependencies": {
     "istanbul": "0.3.*",
     "istanbul-threshold-checker": "0.1.*",
-    "lodash": "3.6.*"
+    "lodash": "4.17.*"
   },
   "devDependencies": {
     "gulp": "3.8.*",
