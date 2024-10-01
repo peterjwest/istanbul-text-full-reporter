@@ -1,6 +1,9 @@
 # Istanbul text-full reporter
 Text based coverage reporter for Istanbul code coverage
 
+> [!WARNING]
+> This project has been archived, because it is no longer maintained, as I don't use Istanbul/nyc anymore
+
 ## With istanbul
 
 To register and use with istanbul:
